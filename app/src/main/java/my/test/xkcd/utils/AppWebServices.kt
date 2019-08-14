@@ -7,6 +7,6 @@ object AppWebServices {
 
     // Api end points
     const val BASE_URL = "https://xkcd.com/"
-    const val COMIC = "{id}/info.0.json"
+    const val API_COMIC = "{id}/info.0.json"
 
 }
