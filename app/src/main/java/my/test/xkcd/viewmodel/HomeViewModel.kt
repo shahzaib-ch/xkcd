@@ -13,6 +13,8 @@ class HomeViewModel(val context: Context?, val binding: ActivityHomeBinding, val
      home view model
      */
 
+    var currentComicId = 1
+
     fun onClickProfile(): View.OnClickListener {
         return View.OnClickListener {
 

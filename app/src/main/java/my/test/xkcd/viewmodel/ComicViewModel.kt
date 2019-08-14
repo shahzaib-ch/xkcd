@@ -21,27 +21,29 @@ class ComicViewModel(private val context: Context?, private val binding: Fragmen
 
     val progressVisibility = ObservableInt(View.GONE)
     lateinit var comicInfo: ComicResponse
+    var currentComicId = 1
 
     fun onClickProfile(): View.OnClickListener {
         return View.OnClickListener {
         }
     }
 
-    fun getComicInfo() {
+    fun getComicInfo(comicId: String) {
         progressVisibility.set(View.VISIBLE)
         runBlocking {
             val apiInterface = ApiFactory.provideApi()
             val comicInfo = try {
-                apiInterface.getComicInfo("627")
+                apiInterface.getComicInfo(comicId)
             } catch (e: Exception) {
                 Timber.e(e)
                 progressVisibility.set(View.GONE)
+                dataListener.onMessage(e.message!!)
                 return@runBlocking
             }
             progressVisibility.set(View.GONE)
             // saving comic info for later use as well
             this@ComicViewModel.comicInfo = comicInfo
-            dataListener.loadComicImage(comicInfo)
+            dataListener.loadComicImageInWebView(comicInfo)
         }
     }
 
@@ -50,7 +52,8 @@ class ComicViewModel(private val context: Context?, private val binding: Fragmen
     }
 
     interface DataListener {
-        fun loadComicImage(comicInfo: ComicResponse)
+        fun loadComicImageInWebView(comicInfo: ComicResponse)
+        fun onMessage(message: String)
     }
 }
 

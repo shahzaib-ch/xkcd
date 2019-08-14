@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import my.test.xkcd.R
 import my.test.xkcd.data.model.comic.ComicResponse
 import my.test.xkcd.databinding.FragmentComicViewBinding
-import my.test.xkcd.utils.AppWebServices
 import my.test.xkcd.viewmodel.ComicViewModel
 
 /**
@@ -30,14 +30,19 @@ class ComicViewFragment : Fragment(), ComicViewModel.DataListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initWebView()
-        viewModel.getComicInfo()
+        // initially loading first comic
+        viewModel.getComicInfo(viewModel.currentComicId.toString())
     }
 
     private fun initWebView(){
-        binding.webView.loadUrl(AppWebServices.BASE_URL + "1/info.0.json")
+        binding.webView.setInitialScale(50)
     }
 
-    override fun loadComicImage(comicInfo: ComicResponse) {
+    override fun loadComicImageInWebView(comicInfo: ComicResponse) {
         binding.webView.loadUrl(comicInfo.img)
+    }
+
+    override fun onMessage(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 }
