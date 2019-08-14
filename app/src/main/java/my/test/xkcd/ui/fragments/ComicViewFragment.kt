@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import my.test.xkcd.R
+import my.test.xkcd.data.model.comic.ComicResponse
 import my.test.xkcd.databinding.FragmentComicViewBinding
 import my.test.xkcd.utils.AppWebServices
 import my.test.xkcd.viewmodel.ComicViewModel
@@ -19,10 +20,6 @@ class ComicViewFragment : Fragment(), ComicViewModel.DataListener {
     private lateinit var binding: FragmentComicViewBinding
     private lateinit var viewModel: ComicViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_comic_view, container, false)
         viewModel = ComicViewModel(activity, binding, this)
@@ -33,9 +30,14 @@ class ComicViewFragment : Fragment(), ComicViewModel.DataListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initWebView()
+        viewModel.getComicInfo()
     }
 
     private fun initWebView(){
         binding.webView.loadUrl(AppWebServices.BASE_URL + "1/info.0.json")
+    }
+
+    override fun loadComicImage(comicInfo: ComicResponse) {
+        binding.webView.loadUrl(comicInfo.img)
     }
 }

@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 
 /**
- * Created by shahzaib on 8/14/2019 .
+ * Created by shahzaib on 8/14/2019.
  */
 object ApiFactory {
 
@@ -46,7 +46,7 @@ object ApiFactory {
                     val jsonElement = JsonParser().parse(message)
                     Timber.d(gson.toJson(jsonElement))
                 } catch (exception: JsonSyntaxException) {
-                    Timber.e(exception)
+                    Timber.d(message)
                 }
             }
         })

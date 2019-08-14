@@ -15,6 +15,7 @@ class HomeViewModel(val context: Context?, val binding: ActivityHomeBinding, val
 
     fun onClickProfile(): View.OnClickListener {
         return View.OnClickListener {
+
         }
     }
 
