@@ -13,17 +13,19 @@ import my.test.xkcd.utils.AppConstants
  */
 class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    var currentComicId = 0
 
     override fun getItem(position: Int): Fragment {
         val bundle = Bundle()
-        bundle.putInt(AppBundles.COMIC_ID.key, ++currentComicId)
+        bundle.putInt(AppBundles.COMIC_ID.key, position)
         val comicViewFragment = ComicViewFragment()
+
         comicViewFragment.arguments = bundle
         return comicViewFragment
     }
 
+    // -1 because index starts from 0
     override fun getCount(): Int {
         return AppConstants.MAX_NUMBER_OF_COMICS
     }
+
 }

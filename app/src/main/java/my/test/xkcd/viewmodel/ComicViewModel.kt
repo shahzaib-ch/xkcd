@@ -19,9 +19,8 @@ class ComicViewModel(private val context: Context?, private val binding: Fragmen
      comic view model
      */
 
-    val progressVisibility = ObservableInt(View.GONE)
+    val progressVisibility = ObservableInt(View.VISIBLE)
     lateinit var comicInfo: ComicResponse
-    var currentComicId = 1
 
     fun onClickProfile(): View.OnClickListener {
         return View.OnClickListener {
@@ -40,7 +39,6 @@ class ComicViewModel(private val context: Context?, private val binding: Fragmen
                 dataListener.onMessage(e.message!!)
                 return@runBlocking
             }
-            progressVisibility.set(View.GONE)
             // saving comic info for later use as well
             this@ComicViewModel.comicInfo = comicInfo
             dataListener.loadComicImageInWebView(comicInfo)

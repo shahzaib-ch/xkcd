@@ -7,17 +7,35 @@ import my.test.xkcd.databinding.ActivityHomeBinding
 /**
  * Created by Shahzaib on 8/14/2019.
  */
-class HomeViewModel(val context: Context?, val binding: ActivityHomeBinding, val dataListener: DataListener) : ViewModel() {
+class HomeViewModel(private val context: Context?, private val binding: ActivityHomeBinding,
+                    private val dataListener: DataListener) : ViewModel() {
 
     /*
      home view model
      */
 
-    var currentComicId = 1
 
-    fun onClickProfile(): View.OnClickListener {
+    fun onClickNext(): View.OnClickListener {
         return View.OnClickListener {
+            dataListener.onNavigationToNextComic()
+        }
+    }
 
+    fun onClickPrevious(): View.OnClickListener {
+        return View.OnClickListener {
+            dataListener.onNavigationToPreviousComic()
+        }
+    }
+
+    fun onClickEnd(): View.OnClickListener {
+        return View.OnClickListener {
+            dataListener.onNavigationToLastComic()
+        }
+    }
+
+    fun onClickStart(): View.OnClickListener {
+        return View.OnClickListener {
+            dataListener.onNavigationToFirstComic()
         }
     }
 
@@ -26,7 +44,10 @@ class HomeViewModel(val context: Context?, val binding: ActivityHomeBinding, val
     }
 
     interface DataListener {
-
+        fun onNavigationToNextComic()
+        fun onNavigationToPreviousComic()
+        fun onNavigationToLastComic()
+        fun onNavigationToFirstComic()
     }
 }
 
