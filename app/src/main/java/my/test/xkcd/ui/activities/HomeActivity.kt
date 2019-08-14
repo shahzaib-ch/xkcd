@@ -17,6 +17,7 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         viewModel = HomeViewModel(this, binding, this)
+        binding.viewModel = viewModel
 
         initComponents()
         initViewPager()

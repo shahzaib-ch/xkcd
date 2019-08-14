@@ -6,6 +6,7 @@ package my.test.xkcd.utils
 object AppWebServices {
 
     // Api end points
-    const val BASE_URL = "https://api.sammevei.no/test/api/v1/"
+    const val BASE_URL = "https://xkcd.com/"
+    const val COMIC = "{id}/info.0.json"
 
 }
