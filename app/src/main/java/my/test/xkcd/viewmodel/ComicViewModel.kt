@@ -20,7 +20,7 @@ class ComicViewModel(private val context: Context?, private val binding: Fragmen
      */
 
     val progressVisibility = ObservableInt(View.VISIBLE)
-    lateinit var comicInfo: ComicResponse
+    var comicInfo: ComicResponse? = null
 
     fun onClickProfile(): View.OnClickListener {
         return View.OnClickListener {
@@ -52,6 +52,10 @@ class ComicViewModel(private val context: Context?, private val binding: Fragmen
     interface DataListener {
         fun loadComicImageInWebView(comicInfo: ComicResponse)
         fun onMessage(message: String)
+    }
+
+    interface HomeActivityDataListener {
+        fun onUpdate(comicInfo: ComicResponse)
     }
 }
 

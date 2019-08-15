@@ -1,5 +1,6 @@
 package my.test.xkcd.ui.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,7 @@ import my.test.xkcd.viewmodel.ComicViewModel
 /**
  * Created by Shahzaib on 8/14/2019.
  */
-class ComicViewFragment : Fragment(), ComicViewModel.DataListener {
+class ComicViewFragment(private val dataListener: ComicViewModel.HomeActivityDataListener) : Fragment(), ComicViewModel.DataListener {
 
     private lateinit var binding: FragmentComicViewBinding
     private lateinit var viewModel: ComicViewModel
@@ -43,6 +44,14 @@ class ComicViewFragment : Fragment(), ComicViewModel.DataListener {
         viewModel.getComicInfo(currentComicId.toString())
     }
 
+    override fun onResume() {
+        super.onResume()
+        // update data on Home activity
+        if(viewModel.comicInfo != null) {
+            dataListener.onUpdate(viewModel.comicInfo!!)
+        }
+    }
+
     private fun initComponents() {
         currentComicId = arguments!!.getInt(AppBundles.COMIC_ID.key)
         // increment as we first index is zero
@@ -51,14 +60,17 @@ class ComicViewFragment : Fragment(), ComicViewModel.DataListener {
 
     private fun initWebView() {
         binding.webView.setInitialScale(90)
-        binding.webView.settings.setSupportZoom(true)
+        binding.webView.settings.builtInZoomControls = true
+        binding.webView.settings.displayZoomControls = false
         binding.webView.settings.useWideViewPort = true
         binding.webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
                 // hiding progress
                 viewModel.progressVisibility.set(View.GONE)
+                binding.webView.visibility = View.VISIBLE
             }
         }
+        binding.webView.setBackgroundColor(Color.parseColor("#ffffff"))
     }
 
     override fun loadComicImageInWebView(comicInfo: ComicResponse) {

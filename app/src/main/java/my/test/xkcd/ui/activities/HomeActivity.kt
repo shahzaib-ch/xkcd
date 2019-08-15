@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import my.test.xkcd.R
 import my.test.xkcd.adapters.ViewPagerAdapter
+import my.test.xkcd.data.model.comic.ComicResponse
 import my.test.xkcd.databinding.ActivityHomeBinding
 import my.test.xkcd.utils.AppConstants
+import my.test.xkcd.viewmodel.ComicViewModel
 import my.test.xkcd.viewmodel.HomeViewModel
 
-class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener {
+class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewModel.HomeActivityDataListener {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var viewModel: HomeViewModel
@@ -32,7 +34,7 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener {
 
     // initializing view pager
     private fun initViewPager() {
-        val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        val viewPagerAdapter = ViewPagerAdapter(this, supportFragmentManager)
         binding.viewPager.adapter = viewPagerAdapter
     }
 
@@ -41,7 +43,7 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener {
     }
 
     override fun onNavigationToLastComic() {
-        binding.viewPager.currentItem = AppConstants.MAX_NUMBER_OF_COMICS
+        binding.viewPager.currentItem = AppConstants.MAX_NUMBER_OF_COMICS - 1
     }
 
     override fun onNavigationToNextComic() {
@@ -50,5 +52,10 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener {
 
     override fun onNavigationToPreviousComic() {
         binding.viewPager.arrowScroll(View.FOCUS_LEFT)
+    }
+
+    override fun onUpdate(comicInfo: ComicResponse) {
+        binding.tvTitle.text = comicInfo.title
+        binding.tvComicId.text = comicInfo.num.toString()
     }
 }
