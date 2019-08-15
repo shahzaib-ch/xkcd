@@ -11,13 +11,11 @@ import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by Shahzaib on 8/14/2019.
+ * comic view model for Comic view fragment
  */
 class ComicViewModel(private val context: Context?,
                      private val dataListener: DataListener) : ViewModel() {
 
-    /*
-     comic view model
-     */
 
     // variables to handle api call job
     private val parentJob = Job()
@@ -52,6 +50,7 @@ class ComicViewModel(private val context: Context?,
 
 
     override fun onDestroy() {
+        // canceled api call coroutine as Fragment is destroyed
         parentJob.cancel()
     }
 

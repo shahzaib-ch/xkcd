@@ -38,7 +38,7 @@
 				android:layout_height="wrap_content"
 				android:paddingStart="@dimen/margin_normal"
 				android:paddingEnd="@dimen/margin_normal"
-				android:text="@string/comic_explanation"
+				android:text="@string/comic_detail"
 				android:textColor="@android:color/black" />
 
 		</androidx.appcompat.widget.Toolbar>

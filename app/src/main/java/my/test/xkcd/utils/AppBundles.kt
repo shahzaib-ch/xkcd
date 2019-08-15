@@ -7,6 +7,6 @@ package my.test.xkcd.utils
 
 enum class AppBundles(val key: String) {
 
-    // Enums for usage as keys
+    // Enums for usage as keys, or events types for event bus
     COMIC_ID("comic_id"), COMIC("comic"), SHARE("share"), UPDATE_HOME("update_home")
 }

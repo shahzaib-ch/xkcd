@@ -10,7 +10,9 @@ import my.test.xkcd.databinding.ActivityDetailBinding
 import my.test.xkcd.utils.AppBundles
 import my.test.xkcd.viewmodel.DetailViewModel
 
-
+/**
+ * This activity shows detail of a comic
+ */
 class DetailActivity : AppCompatActivity(), DetailViewModel.DataListener {
 
     private lateinit var binding: ActivityDetailBinding

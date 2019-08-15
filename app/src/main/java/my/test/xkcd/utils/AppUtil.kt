@@ -9,9 +9,11 @@ import java.io.IOException
 
 /**
  * Created by Shahzaib on 8/15/2019.
+ * Helper class, contains generic methods used in app
  */
 object AppUtil {
 
+    // saves file in files directory
     fun saveBitmapToFile(dir: File, fileName: String, bm: Bitmap,
                          format: Bitmap.CompressFormat, quality: Int): File? {
         if (!dir.exists()) {

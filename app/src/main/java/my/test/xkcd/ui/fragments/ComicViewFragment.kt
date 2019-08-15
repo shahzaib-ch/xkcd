@@ -34,6 +34,7 @@ import java.io.File
 
 /**
  * Created by Shahzaib on 8/14/2019.
+ * This fragment is responsible for showing comics and allow zoom comics
  */
 class ComicViewFragment : Fragment(),
     ComicViewModel.DataListener {
@@ -43,6 +44,7 @@ class ComicViewFragment : Fragment(),
     private var currentComicId: Int = 1
 
     companion object {
+        // this methods to return new instance of fragment
         fun newInstance(args: Bundle): ComicViewFragment {
             val fragment = ComicViewFragment()
             fragment.arguments = args
@@ -91,6 +93,7 @@ class ComicViewFragment : Fragment(),
         ++currentComicId
     }
 
+    // this event bus method is being used to receive event, (not a unused method)
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: ShareEvent) {
         // performing sharing of comic
@@ -99,7 +102,7 @@ class ComicViewFragment : Fragment(),
             val comicFile = AppUtil.saveBitmapToFile(
                 File(context!!.filesDir, AppConstants.COMIC_SHARING_FOLDER_NAME),
                 AppConstants.COMIC_SHARING_FILE_NAME,
-                bitMap!!,
+                bitMap,
                 Bitmap.CompressFormat.PNG, 100
             )
 
@@ -116,6 +119,7 @@ class ComicViewFragment : Fragment(),
     }
 
 
+    // loading comic image to image view
     @SuppressLint("CheckResult")
     override fun loadComicImage(comicInfo: ComicResponse) {
         Glide.with(this).asBitmap().load(comicInfo.img)

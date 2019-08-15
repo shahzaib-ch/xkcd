@@ -12,13 +12,11 @@ import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by Shahzaib on 8/14/2019.
+ * home view model for home activity
  */
 class HomeViewModel(private val context: Context?,
                     private val dataListener: DataListener) : ViewModel() {
 
-    /*
-     home view model
-     */
     // variables to handle api call job
     private val parentJob = Job()
     private val coroutineContext : CoroutineContext get() = parentJob + Dispatchers.Default

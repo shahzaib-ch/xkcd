@@ -105,6 +105,7 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener {
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
+    // this event bus method is being used to receive event, (not a unused method)
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: ShareEvent) {
         if(event.eventType == AppBundles.UPDATE_HOME){
@@ -112,6 +113,7 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener {
         }
     }
 
+    // broadcasting share comic event to be used in comic view fragment
     private fun shareComic(){
         EventBus.getDefault().post(ShareEvent(AppBundles.SHARE, null))
     }
@@ -164,8 +166,8 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 
-    // this called from comic view fragment
-    fun onUpdate(comicInfo: ComicResponse) {
+    // this called from comic view fragment with comicInfo
+    private fun onUpdate(comicInfo: ComicResponse) {
         binding.tvTitle.text = comicInfo.title
         binding.tvComicId.text = comicInfo.num.toString()
         viewModel.comicInfo = comicInfo

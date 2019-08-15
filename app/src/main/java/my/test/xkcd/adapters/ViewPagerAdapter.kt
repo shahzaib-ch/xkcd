@@ -10,6 +10,7 @@ import my.test.xkcd.utils.AppConstants
 
 /**
  * Created by Shahzaib on 8/14/2019.
+ * this adapter is used to manage fragments in view pager
  */
 class ViewPagerAdapter(fm: FragmentManager)
     : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

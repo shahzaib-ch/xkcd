@@ -19,6 +19,7 @@ interface ApiInterface {
     @GET(AppWebServices.API_COMIC)
     suspend fun getComicInfo(@Path(value = "id", encoded = true) comicId: String?): ComicResponse
 
+    // api to search comics using text
     @GET(AppWebServices.API_COMIC_SEARCH)
     suspend fun comicSearchByText(@Query("action") action: String, @Query("query") query: String): String
 }

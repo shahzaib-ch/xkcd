@@ -7,13 +7,10 @@ import androidx.databinding.ObservableInt
 
 /**
  * Created by Shahzaib on 8/14/2019.
+ * explain view model for explain activity used to show explanation of comic
  */
 class ExplainViewModel(private val context: Context?,
                        private val dataListener: DataListener) : ViewModel() {
-
-    /*
-     explain view model
-     */
     val progressVisibility = ObservableInt(View.VISIBLE)
 
 

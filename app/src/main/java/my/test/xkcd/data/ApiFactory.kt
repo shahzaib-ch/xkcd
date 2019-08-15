@@ -59,11 +59,13 @@ object ApiFactory {
         return httpLoggingInterceptor
     }
 
-    // method to return ApiInterface to get
+    // two separate methods are added because of two separate base urls
+    // method to return ApiInterface to get comic info
     fun provideApi(): ApiInterface {
         return provideRetrofit(BASE_URL).create(ApiInterface::class.java)
     }
 
+    // this provides api interface for search of comic
     fun provideSearchApi(): ApiInterface {
         return provideRetrofit(COMIC_SEARCH_BASE_URL).create(ApiInterface::class.java)
     }
