@@ -2,6 +2,7 @@ package my.test.xkcd.viewmodel
 
 import android.content.Context
 import android.view.View
+import my.test.xkcd.data.model.comic.ComicResponse
 import my.test.xkcd.databinding.ActivityHomeBinding
 
 /**
@@ -14,6 +15,7 @@ class HomeViewModel(private val context: Context?, private val binding: Activity
      home view model
      */
 
+    var comicInfo: ComicResponse? = null
 
     fun onClickNext(): View.OnClickListener {
         return View.OnClickListener {

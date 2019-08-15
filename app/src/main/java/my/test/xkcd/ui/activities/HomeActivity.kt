@@ -1,5 +1,6 @@
 package my.test.xkcd.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,6 +13,7 @@ import my.test.xkcd.R
 import my.test.xkcd.adapters.ViewPagerAdapter
 import my.test.xkcd.data.model.comic.ComicResponse
 import my.test.xkcd.databinding.ActivityHomeBinding
+import my.test.xkcd.utils.AppBundles
 import my.test.xkcd.utils.AppConstants
 import my.test.xkcd.viewmodel.ComicViewModel
 import my.test.xkcd.viewmodel.HomeViewModel
@@ -46,7 +48,8 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
                     onMessage("Not a number search")
                     return false
                 }
-                binding.viewPager.currentItem = comicId
+                // updating current fragment
+                binding.viewPager.currentItem = comicId - 1
                 searchItem.collapseActionView()
                 return false
             }
@@ -66,7 +69,7 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
             }
 
             R.id.action_explain -> {
-
+                startExplanationActivity()
             }
 
         }
@@ -77,6 +80,16 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
     private fun initComponents() {
         setSupportActionBar(binding.toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+    }
+
+    private fun startExplanationActivity(){
+        if(viewModel.comicInfo == null)
+            return
+
+        val intent = Intent(this, ExplainActivity::class.java)
+        intent.putExtra(AppBundles.COMIC_ID.key, viewModel.comicInfo?.num)
+        intent.putExtra(AppBundles.COMIC_TITLE.key, viewModel.comicInfo?.title)
+        startActivity(intent)
     }
 
     // initializing view pager
@@ -108,5 +121,6 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
     override fun onUpdate(comicInfo: ComicResponse) {
         binding.tvTitle.text = comicInfo.title
         binding.tvComicId.text = comicInfo.num.toString()
+        viewModel.comicInfo = comicInfo
     }
 }
