@@ -15,12 +15,15 @@ import my.test.xkcd.data.model.comic.ComicResponse
 import my.test.xkcd.databinding.ActivityHomeBinding
 import my.test.xkcd.utils.AppBundles
 import my.test.xkcd.utils.AppConstants
-import my.test.xkcd.viewmodel.ComicViewModel
+import my.test.xkcd.utils.ShareEvent
 import my.test.xkcd.viewmodel.HomeViewModel
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
 
 
-class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewModel.HomeActivityDataListener {
+class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var viewModel: HomeViewModel
@@ -74,8 +77,21 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
                 startExplanationActivity()
             }
 
+            R.id.action_share -> {
+                shareComic()
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        EventBus.getDefault().unregister(this)
     }
 
     override fun onDestroy() {
@@ -87,6 +103,17 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
     private fun initComponents() {
         setSupportActionBar(binding.toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: ShareEvent) {
+        if(event.eventType == AppBundles.UPDATE_HOME){
+            onUpdate(event.comicInfo!!)
+        }
+    }
+
+    private fun shareComic(){
+        EventBus.getDefault().post(ShareEvent(AppBundles.SHARE, null))
     }
 
     private fun startExplanationActivity() {
@@ -109,7 +136,7 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
 
     // initializing view pager
     private fun initViewPager() {
-        val viewPagerAdapter = ViewPagerAdapter(this, supportFragmentManager)
+        val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         binding.viewPager.adapter = viewPagerAdapter
     }
 
@@ -137,7 +164,8 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
         Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 
-    override fun onUpdate(comicInfo: ComicResponse) {
+    // this called from comic view fragment
+    fun onUpdate(comicInfo: ComicResponse) {
         binding.tvTitle.text = comicInfo.title
         binding.tvComicId.text = comicInfo.num.toString()
         viewModel.comicInfo = comicInfo

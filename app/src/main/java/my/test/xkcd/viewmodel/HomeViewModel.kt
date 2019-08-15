@@ -6,6 +6,7 @@ import androidx.databinding.ObservableInt
 import kotlinx.coroutines.*
 import my.test.xkcd.data.ApiFactory
 import my.test.xkcd.data.model.comic.ComicResponse
+import my.test.xkcd.ui.fragments.ComicViewFragment
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
@@ -24,6 +25,7 @@ class HomeViewModel(private val context: Context?,
     private val scope = CoroutineScope(coroutineContext)
 
     var comicInfo: ComicResponse? = null
+    var currentComicViewFragment: ComicViewFragment? = null
     val progressVisibility = ObservableInt(View.GONE)
 
     fun onClickNext(): View.OnClickListener {

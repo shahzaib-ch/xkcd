@@ -45,6 +45,7 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'org.greenrobot:eventbus:3.1.1'
 
     // libraries for testing
     testImplementation 'junit:junit:4.12'

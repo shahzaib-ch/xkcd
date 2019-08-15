@@ -17,6 +17,16 @@
 			android:theme="@style/AppTheme"
 			tools:ignore="GoogleAppIndexingWarning">
 
+		<provider
+			android:name="androidx.core.content.FileProvider"
+			android:authorities="my.test.xkcd.fileprovider"
+			android:exported="false"
+			android:grantUriPermissions="true">
+			<meta-data
+				android:name="android.support.FILE_PROVIDER_PATHS"
+				android:resource="@xml/paths" />
+		</provider>
+
 		<activity android:name=".ui.activities.HomeActivity"
 				  android:windowSoftInputMode="stateHidden"
 				  android:screenOrientation="portrait">
