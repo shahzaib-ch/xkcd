@@ -39,18 +39,20 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
         menuInflater.inflate(R.menu.menu_toolbar, menu)
         val searchItem = menu?.findItem(R.id.action_search)
         val searchView = searchItem?.actionView as SearchView
+        searchView.queryHint = getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 val comicId = try {
                     Integer.parseInt(query!!)
                 } catch (e: Exception) {
                     Timber.d("text search....")
+                    searchItem.collapseActionView()
                     viewModel.comicSearchByText(query!!)
                     return false
                 }
                 // updating current fragment
-                binding.viewPager.currentItem = comicId - 1
                 searchItem.collapseActionView()
+                binding.viewPager.currentItem = comicId - 1
                 return false
             }
 
@@ -87,8 +89,8 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
-    private fun startExplanationActivity(){
-        if(viewModel.comicInfo == null)
+    private fun startExplanationActivity() {
+        if (viewModel.comicInfo == null)
             return
 
         val intent = Intent(this, ExplainActivity::class.java)

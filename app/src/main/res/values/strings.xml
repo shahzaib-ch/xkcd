@@ -8,4 +8,5 @@
 	<string name="explain">Explain</string>
 	<string name="detail">Detail</string>
 	<string name="back">back</string>
+    <string name="search_hint">Search by number or text</string>
 </resources>
