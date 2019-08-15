@@ -48,6 +48,7 @@ class HomeViewModel(private val context: Context?, private val binding: Activity
         fun onNavigationToPreviousComic()
         fun onNavigationToLastComic()
         fun onNavigationToFirstComic()
+        fun onMessage(message: String)
     }
 }
 
