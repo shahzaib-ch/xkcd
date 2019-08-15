@@ -67,7 +67,7 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_detail -> {
-
+                startDetailActivity()
             }
 
             R.id.action_explain -> {
@@ -95,7 +95,15 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
 
         val intent = Intent(this, ExplainActivity::class.java)
         intent.putExtra(AppBundles.COMIC_ID.key, viewModel.comicInfo?.num)
-        intent.putExtra(AppBundles.COMIC_TITLE.key, viewModel.comicInfo?.title)
+        startActivity(intent)
+    }
+
+    private fun startDetailActivity() {
+        if (viewModel.comicInfo == null)
+            return
+
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra(AppBundles.COMIC.key, viewModel.comicInfo)
         startActivity(intent)
     }
 

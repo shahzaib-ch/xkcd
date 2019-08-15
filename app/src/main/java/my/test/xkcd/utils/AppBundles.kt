@@ -8,5 +8,5 @@ package my.test.xkcd.utils
 enum class AppBundles(val key: String) {
 
     // Enums for usage as keys
-    COMIC_ID("comic_id"), COMIC_TITLE("comic_title")
+    COMIC_ID("comic_id"), COMIC("comic")
 }

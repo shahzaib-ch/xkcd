@@ -9,4 +9,11 @@
 	<string name="detail">Detail</string>
 	<string name="back">back</string>
     <string name="search_hint">Search by number or text</string>
+	<string name="comic_detail">Comic Detail</string>
+	<string name="comic_explanation">Comic Explanation</string>
+	<string name="title_label">Title:</string>
+	<string name="date_label">Date:</string>
+	<string name="number_label">Number:</string>
+	<string name="transcript_label">Transcript:</string>
+	<string name="date_template">%1$s/%2$s/%3$s</string>
 </resources>

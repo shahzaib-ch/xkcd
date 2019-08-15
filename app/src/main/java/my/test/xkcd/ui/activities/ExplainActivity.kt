@@ -42,8 +42,6 @@ class ExplainActivity : AppCompatActivity(), ExplainViewModel.DataListener {
 
         // load url and show title of comic
         val comicId = intent.getIntExtra(AppBundles.COMIC_ID.key, 1)
-        val comicTitle = intent.getStringExtra(AppBundles.COMIC_TITLE.key)
-        binding.tvTitle.text = comicTitle
         binding.webView.loadUrl(AppWebServices.COMIC_EXPLANATION_BASE_URL + comicId)
     }
 

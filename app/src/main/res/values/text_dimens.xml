@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<dimen name="normal">10sp</dimen>
+	<dimen name="normal_high">15sp</dimen>
 	<dimen name="medium">20sp</dimen>
 </resources>
