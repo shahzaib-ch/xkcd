@@ -18,10 +18,7 @@ class ViewPagerAdapter(fm: FragmentManager)
     override fun getItem(position: Int): Fragment {
         val bundle = Bundle()
         bundle.putInt(AppBundles.COMIC_ID.key, position)
-        val comicViewFragment = ComicViewFragment.newInstance(bundle)
-
-        comicViewFragment.arguments = bundle
-        return comicViewFragment
+        return ComicViewFragment.newInstance(bundle)
     }
 
     // -1 because index starts from 0

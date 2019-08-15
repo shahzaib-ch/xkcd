@@ -7,7 +7,6 @@ import kotlinx.coroutines.*
 import my.test.xkcd.data.ApiFactory
 import my.test.xkcd.data.model.comic.ComicResponse
 import timber.log.Timber
-import java.io.File
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -27,7 +26,6 @@ class ComicViewModel(private val context: Context?,
 
     val progressVisibility = ObservableInt(View.VISIBLE)
     var comicInfo: ComicResponse? = null
-    var comicFile: File? = null
 
 
     fun getComicInfo(comicId: String) {
@@ -60,10 +58,6 @@ class ComicViewModel(private val context: Context?,
     interface DataListener {
         fun loadComicImage(comicInfo: ComicResponse)
         fun onMessage(message: String)
-    }
-
-    interface HomeActivityDataListener {
-        fun onUpdate(comicInfo: ComicResponse)
     }
 }
 
