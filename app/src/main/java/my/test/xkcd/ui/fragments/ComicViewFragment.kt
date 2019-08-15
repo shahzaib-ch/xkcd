@@ -1,14 +1,17 @@
 package my.test.xkcd.ui.fragments
 
-import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.android.material.snackbar.Snackbar
 import my.test.xkcd.data.model.comic.ComicResponse
 import my.test.xkcd.databinding.FragmentComicViewBinding
@@ -19,7 +22,8 @@ import my.test.xkcd.viewmodel.ComicViewModel
 /**
  * Created by Shahzaib on 8/14/2019.
  */
-class ComicViewFragment(private val dataListener: ComicViewModel.HomeActivityDataListener) : Fragment(), ComicViewModel.DataListener {
+class ComicViewFragment(private val dataListener: ComicViewModel.HomeActivityDataListener) : Fragment(),
+    ComicViewModel.DataListener {
 
     private lateinit var binding: FragmentComicViewBinding
     private lateinit var viewModel: ComicViewModel
@@ -39,7 +43,6 @@ class ComicViewFragment(private val dataListener: ComicViewModel.HomeActivityDat
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initWebView()
         // initially loading first comic
         viewModel.getComicInfo(currentComicId.toString())
     }
@@ -47,7 +50,7 @@ class ComicViewFragment(private val dataListener: ComicViewModel.HomeActivityDat
     override fun onResume() {
         super.onResume()
         // update data on Home activity
-        if(viewModel.comicInfo != null) {
+        if (viewModel.comicInfo != null) {
             dataListener.onUpdate(viewModel.comicInfo!!)
         }
     }
@@ -63,23 +66,27 @@ class ComicViewFragment(private val dataListener: ComicViewModel.HomeActivityDat
         ++currentComicId
     }
 
-    private fun initWebView() {
-        binding.webView.setInitialScale(90)
-        binding.webView.settings.builtInZoomControls = true
-        binding.webView.settings.displayZoomControls = false
-        binding.webView.settings.useWideViewPort = true
-        binding.webView.webViewClient = object : WebViewClient() {
-            override fun onPageFinished(view: WebView, url: String) {
-                // hiding progress
-                viewModel.progressVisibility.set(View.GONE)
-                binding.webView.visibility = View.VISIBLE
-            }
-        }
-        binding.webView.setBackgroundColor(Color.parseColor("#ffffff"))
-    }
+    override fun loadComicImage(comicInfo: ComicResponse) {
+        Glide.with(this).load(comicInfo.img)
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean = false
 
-    override fun loadComicImageInWebView(comicInfo: ComicResponse) {
-        binding.webView.loadUrl(comicInfo.img)
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    viewModel.progressVisibility.set(View.GONE)
+                    return false
+                }
+            }).into(binding.photoView)
     }
 
     override fun onMessage(message: String) {

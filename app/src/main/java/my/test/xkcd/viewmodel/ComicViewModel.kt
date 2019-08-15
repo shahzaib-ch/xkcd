@@ -47,7 +47,7 @@ class ComicViewModel(private val context: Context?,
             }
             job.join()
         }
-        if(comicInfo != null) dataListener.loadComicImageInWebView(comicInfo!!)
+        if(comicInfo != null) dataListener.loadComicImage(comicInfo!!)
     }
 
     override fun onDestroy() {
@@ -55,7 +55,7 @@ class ComicViewModel(private val context: Context?,
     }
 
     interface DataListener {
-        fun loadComicImageInWebView(comicInfo: ComicResponse)
+        fun loadComicImage(comicInfo: ComicResponse)
         fun onMessage(message: String)
     }
 
