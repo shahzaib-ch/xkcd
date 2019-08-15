@@ -32,7 +32,7 @@ class ComicViewFragment(private val dataListener: ComicViewModel.HomeActivityDat
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, my.test.xkcd.R.layout.fragment_comic_view, container, false)
-        viewModel = ComicViewModel(activity, binding, this)
+        viewModel = ComicViewModel(activity, this)
         binding.viewModel = viewModel
         return binding.root
     }
@@ -50,6 +50,11 @@ class ComicViewFragment(private val dataListener: ComicViewModel.HomeActivityDat
         if(viewModel.comicInfo != null) {
             dataListener.onUpdate(viewModel.comicInfo!!)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.onDestroy()
     }
 
     private fun initComponents() {

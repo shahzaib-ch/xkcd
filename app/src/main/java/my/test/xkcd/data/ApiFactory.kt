@@ -5,10 +5,12 @@ import com.google.gson.JsonParser
 import com.google.gson.JsonSyntaxException
 import my.test.xkcd.BuildConfig
 import my.test.xkcd.utils.AppWebServices.BASE_URL
+import my.test.xkcd.utils.AppWebServices.COMIC_SEARCH_BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
@@ -23,6 +25,7 @@ object ApiFactory {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(provideOkHttpClient())
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -59,5 +62,9 @@ object ApiFactory {
     // method to return ApiInterface to get
     fun provideApi(): ApiInterface {
         return provideRetrofit(BASE_URL).create(ApiInterface::class.java)
+    }
+
+    fun provideSearchApi(): ApiInterface {
+        return provideRetrofit(COMIC_SEARCH_BASE_URL).create(ApiInterface::class.java)
     }
 }

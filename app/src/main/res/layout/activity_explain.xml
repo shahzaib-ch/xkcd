@@ -30,7 +30,7 @@
 				android:contentDescription="@string/back"
 				android:onClick="@{viewModel.onClickBack()}"
 				android:padding="@dimen/margin_small"
-				android:src="@drawable/ic_back" />
+				android:src="@drawable/ic_back_arrow" />
 
 			<TextView
 				android:id="@+id/tv_title"

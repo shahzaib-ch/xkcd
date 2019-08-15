@@ -28,7 +28,7 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
-        viewModel = HomeViewModel(this, binding, this)
+        viewModel = HomeViewModel(this, this)
         binding.viewModel = viewModel
 
         initComponents()
@@ -44,8 +44,8 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
                 val comicId = try {
                     Integer.parseInt(query!!)
                 } catch (e: Exception) {
-                    Timber.e(e)
-                    onMessage("Not a number search")
+                    Timber.d("text search....")
+                    viewModel.comicSearchByText(query!!)
                     return false
                 }
                 // updating current fragment
@@ -74,6 +74,11 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
 
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.onDestroy()
     }
 
     // initializing all data and components on start of activity
@@ -112,6 +117,10 @@ class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener, ComicViewM
 
     override fun onNavigationToPreviousComic() {
         binding.viewPager.arrowScroll(View.FOCUS_LEFT)
+    }
+
+    override fun onComicSearchSuccess(comicId: Int) {
+        binding.viewPager.currentItem = comicId - 1
     }
 
     override fun onMessage(message: String) {

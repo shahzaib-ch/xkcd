@@ -30,6 +30,11 @@ class ExplainActivity : AppCompatActivity(), ExplainViewModel.DataListener {
         initWebView()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.onDestroy()
+    }
+
     // initializing all data and components on start of activity
     private fun initComponents() {
         setSupportActionBar(binding.toolBar)
