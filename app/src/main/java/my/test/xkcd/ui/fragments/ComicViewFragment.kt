@@ -67,7 +67,8 @@ class ComicViewFragment : Fragment(),
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         // initially loading first comic
-        viewModel.getComicInfo(currentComicId.toString())
+        viewModel.comicInfo = viewModel.getComicInfo(currentComicId.toString())
+        if(viewModel.comicInfo != null) loadComicImage(viewModel.comicInfo!!)
     }
 
 
@@ -121,7 +122,7 @@ class ComicViewFragment : Fragment(),
 
     // loading comic image to image view
     @SuppressLint("CheckResult")
-    override fun loadComicImage(comicInfo: ComicResponse) {
+    fun loadComicImage(comicInfo: ComicResponse) {
         Glide.with(this).asBitmap().load(comicInfo.img)
             .listener(object : RequestListener<Bitmap> {
 

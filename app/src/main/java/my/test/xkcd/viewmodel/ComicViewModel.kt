@@ -26,7 +26,7 @@ class ComicViewModel(private val context: Context?,
     var comicInfo: ComicResponse? = null
 
 
-    fun getComicInfo(comicId: String) {
+    fun getComicInfo(comicId: String): ComicResponse? {
         progressVisibility.set(View.VISIBLE)
         var comicInfo: ComicResponse? = null
         runBlocking {
@@ -45,7 +45,7 @@ class ComicViewModel(private val context: Context?,
             }
             job.join()
         }
-        if(comicInfo != null) dataListener.loadComicImage(comicInfo!!)
+        return comicInfo
     }
 
 
@@ -55,7 +55,6 @@ class ComicViewModel(private val context: Context?,
     }
 
     interface DataListener {
-        fun loadComicImage(comicInfo: ComicResponse)
         fun onMessage(message: String)
     }
 }
