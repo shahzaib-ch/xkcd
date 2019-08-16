@@ -17,7 +17,7 @@ import my.test.xkcd.viewmodel.ExplainViewModel
 /**
  * This activity shows explanation of a comic in web view
  */
-class ExplainActivity : AppCompatActivity(), ExplainViewModel.DataListener {
+class ExplainActivity : XkcdActivity(), ExplainViewModel.DataListener {
 
     private lateinit var binding: ActivityExplainBinding
     private lateinit var viewModel: ExplainViewModel

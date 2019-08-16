@@ -23,7 +23,7 @@ import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
 
 
-class HomeActivity : AppCompatActivity(), HomeViewModel.DataListener {
+class HomeActivity : XkcdActivity(), HomeViewModel.DataListener {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var viewModel: HomeViewModel

@@ -49,6 +49,11 @@ dependencies {
 
     // libraries for testing
     testImplementation 'junit:junit:4.12'
+    testImplementation 'com.android.support.test:runner:1.0.2'
+    testImplementation 'com.nhaarman:mockito-kotlin-kt1.1:1.5.0'
+
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test:core:1.2.1-alpha02'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
 }

@@ -13,7 +13,7 @@ import my.test.xkcd.viewmodel.DetailViewModel
 /**
  * This activity shows detail of a comic
  */
-class DetailActivity : AppCompatActivity(), DetailViewModel.DataListener {
+class DetailActivity : XkcdActivity(), DetailViewModel.DataListener {
 
     private lateinit var binding: ActivityDetailBinding
     private lateinit var viewModel: DetailViewModel
