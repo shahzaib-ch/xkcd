@@ -153,6 +153,7 @@ class ComicViewFragment : Fragment(),
     }
 
     override fun onMessage(message: String) {
+        if(isResumed)
         Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 
