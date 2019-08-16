@@ -50,7 +50,7 @@ class HomeViewModel(private val context: Context?,
         }
     }
 
-    fun comicSearchByText(query: String) {
+    fun comicSearchByText(query: String): Int? {
         progressVisibility.set(View.VISIBLE)
         var comicId = 1
         runBlocking {
@@ -67,9 +67,9 @@ class HomeViewModel(private val context: Context?,
                 comicId = parseAndGetMostRelevantComicId(comicSearchResponse)
             }
             job.join()
-            dataListener.onComicSearchSuccess(comicId)
             progressVisibility.set(View.GONE)
         }
+        return comicId
     }
 
     private fun parseAndGetMostRelevantComicId(response: String) : Int{
@@ -88,7 +88,6 @@ class HomeViewModel(private val context: Context?,
         fun onNavigationToPreviousComic()
         fun onNavigationToLastComic()
         fun onNavigationToFirstComic()
-        fun onComicSearchSuccess(comicId: Int)
         fun onMessage(message: String)
     }
 }

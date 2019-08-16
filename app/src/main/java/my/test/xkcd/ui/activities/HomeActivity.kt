@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.snackbar.Snackbar
@@ -50,7 +49,8 @@ class HomeActivity : XkcdActivity(), HomeViewModel.DataListener {
                 } catch (e: Exception) {
                     Timber.d("text search....")
                     searchItem.collapseActionView()
-                    viewModel.comicSearchByText(query!!)
+                    val comicId = viewModel.comicSearchByText(query!!)
+                    onComicSearchSuccess(comicId!!)
                     return false
                 }
                 // updating current fragment
@@ -158,7 +158,7 @@ class HomeActivity : XkcdActivity(), HomeViewModel.DataListener {
         binding.viewPager.arrowScroll(View.FOCUS_LEFT)
     }
 
-    override fun onComicSearchSuccess(comicId: Int) {
+    private fun onComicSearchSuccess(comicId: Int) {
         binding.viewPager.currentItem = comicId - 1
     }
 
